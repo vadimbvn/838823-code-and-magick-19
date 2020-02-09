@@ -10,10 +10,10 @@ var FONT_GAP = 20;
 var BAR_WIDTH = 40;
 var BAR_HEIGHT = 150;
 var BAR_GAP = 50;
-var FONT_SIZE = 16;
+var TEXT_FONT = '16px PT Mono';
 var FONT_COLOR = '#000';
-var WIN_MESSAGE = 'Ура, вы победили!';
-var TEXT_MESSAGE = 'Список результатов:';
+var TEXT_BASELINE = 'hanging';
+var WIN_MESSAGE = ['Ура, вы победили!', 'Список результатов:'];
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -42,21 +42,20 @@ window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   ctx.fillStyle = FONT_COLOR;
-  ctx.font = FONT_SIZE + 'PT Mono';
-  ctx.textBaseline = 'hanging';
+  ctx.font = TEXT_FONT;
+  ctx.textBaseline = TEXT_BASELINE;
 
-  var victoryText = [WIN_MESSAGE, TEXT_MESSAGE];
-  for (var i = 0; i < victoryText.length; i++) {
-    ctx.fillText(victoryText[i], CLOUD_X + FONT_GAP, CLOUD_Y + FONT_GAP + (FONT_GAP * i));
+  for (var i = 0; i < WIN_MESSAGE.length; i++) {
+    ctx.fillText(WIN_MESSAGE[i], CLOUD_X + FONT_GAP, CLOUD_Y + FONT_GAP + (FONT_GAP * i));
   }
 
   var maxTime = getMaxElement(times);
 
-  for (var i = 0; i < names.length; i++) {
+  for (var j = 0; j < names.length; j++) {
     ctx.fillStyle = FONT_COLOR;
-    ctx.fillText(names[i], CLOUD_X + BAR_WIDTH + (BAR_GAP + BAR_WIDTH) * i, CLOUD_HEIGHT - FONT_GAP);
-    ctx.fillText(Math.round(times[i]), CLOUD_X + BAR_WIDTH + (BAR_GAP + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - FONT_GAP * 3 - (BAR_HEIGHT * times[i]) / maxTime);
-    ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'hsl(232,' + getRandomNumber(1, 100) + '%, 50%)';
-    ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_GAP + BAR_WIDTH) * i, CLOUD_Y + CLOUD_HEIGHT - FONT_GAP * 2 - (BAR_HEIGHT * times[i]) / maxTime, BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
+    ctx.fillText(names[j], CLOUD_X + BAR_WIDTH + (BAR_GAP + BAR_WIDTH) * j, CLOUD_HEIGHT - FONT_GAP);
+    ctx.fillText(Math.round(times[j]), CLOUD_X + BAR_WIDTH + (BAR_GAP + BAR_WIDTH) * j, CLOUD_Y + CLOUD_HEIGHT - FONT_GAP * 3 - (BAR_HEIGHT * times[j]) / maxTime);
+    ctx.fillStyle = names[j] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'hsl(232,' + getRandomNumber(1, 100) + '%, 50%)';
+    ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_GAP + BAR_WIDTH) * j, CLOUD_Y + CLOUD_HEIGHT - FONT_GAP * 2 - (BAR_HEIGHT * times[j]) / maxTime, BAR_WIDTH, (BAR_HEIGHT * times[j]) / maxTime);
   }
 };
