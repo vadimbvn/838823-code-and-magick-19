@@ -12,8 +12,8 @@ var BAR_HEIGHT = 150;
 var BAR_GAP = 50;
 var FONT_SIZE = 16;
 var FONT_COLOR = '#000';
-var WIN_MESSAGE = 'Ура, вы победили';
-var TEXT_MESSAGE = 'Список результатов';
+var WIN_MESSAGE = 'Ура, вы победили!';
+var TEXT_MESSAGE = 'Список результатов:';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
